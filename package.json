@@ -1,6 +1,7 @@
 {
   "name": "treez",
   "version": "0.0.0",
+  "homepage": "https://mohammedal-rowad.github.io/treez/", 
   "scripts": {
     "dev": "vite",
     "build": "vite build",
