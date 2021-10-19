@@ -33,6 +33,7 @@ export default function RecipeReviewCard({ text, open, completed }) {
         onClick={(e) => {
           if (open) {
             e.stopPropagation()
+            alert(`Clicked ${text}`)
             e.nativeEvent.stopImmediatePropagation()
             setExpanded(!expanded)
           }
