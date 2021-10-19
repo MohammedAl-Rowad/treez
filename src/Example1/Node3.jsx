@@ -30,14 +30,18 @@ export default function RecipeReviewCard({ text, open, completed }) {
   return (
     <Card className={classes.root}>
       <CardHeader
-        onClick={(e) => {
-          if (open) {
-            e.stopPropagation()
-            alert(`Clicked ${text}`)
-            e.nativeEvent.stopImmediatePropagation()
-            setExpanded(!expanded)
-          }
-        }}
+        onClick={
+          expanded
+            ? () => {}
+            : (e) => {
+                if (open) {
+                  e.stopPropagation()
+                  // alert(`Clicked ${text}`)
+                  e.nativeEvent.stopImmediatePropagation()
+                  setExpanded(!expanded)
+                }
+              }
+        }
         className={classes.header}
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>

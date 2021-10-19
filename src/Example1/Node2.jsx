@@ -51,7 +51,7 @@ export default function RecipeReviewCard({ text, open, completed }) {
 
   const handleExpandClick = (e) => {
     if (open) {
-      alert(`Clicked ${text}`)
+      // alert(`Clicked ${text}`)
       e.stopPropagation()
       e.nativeEvent.stopImmediatePropagation()
       setExpanded(!expanded)
@@ -61,7 +61,7 @@ export default function RecipeReviewCard({ text, open, completed }) {
   return (
     <Card className={classes.root}>
       <CardHeader
-        onClick={handleExpandClick}
+        onClick={expanded ? () => {} : handleExpandClick}
         className={classes.header}
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>

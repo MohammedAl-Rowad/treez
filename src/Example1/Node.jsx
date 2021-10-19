@@ -43,6 +43,13 @@ const useStyles = makeStyles((theme) => ({
     border: ({ completed }) =>
       completed ? '#097e80 solid 2px' : '#097e80 dashed 2px',
   },
+  cardOnly: {
+    padding: 10,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'inherit',
+  },
 }))
 
 export default function RecipeReviewCard({ text, completed, open }) {
@@ -58,39 +65,51 @@ export default function RecipeReviewCard({ text, completed, open }) {
   const handleExpandClick = (e) => {
     if (open) {
       e.stopPropagation()
-      alert(`Clicked ${text}`)
+      // alert(`Clicked ${text}`)
       e.nativeEvent.stopImmediatePropagation()
       setExpanded(!expanded)
     }
   }
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        onClick={handleExpandClick}
-        className={classes.header}
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {completed ? <CheckRoundedIcon /> : ''}
-          </Avatar>
-        }
-        action={
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        }
-        title={text}
-      />
-
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Node2 text={name.firstName()} open={open} completed={completed} />
-        </CardContent>
-      </Collapse>
+    <Card className={!open ? classes.cardOnly : classes.root}>
+      {!open ? (
+        <Avatar aria-label="recipe" className={classes.avatar}>
+          {completed ? <CheckRoundedIcon /> : ''}
+        </Avatar>
+      ) : (
+        <>
+          {' '}
+          <CardHeader
+            onClick={expanded ? () => {} : handleExpandClick}
+            className={classes.header}
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                {completed ? <CheckRoundedIcon /> : ''}
+              </Avatar>
+            }
+            action={
+              <IconButton
+                className={clsx(classes.expand, {
+                  [classes.expandOpen]: expanded,
+                })}
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            }
+            title={text}
+          />
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Node2
+                text={name.firstName()}
+                open={open}
+                completed={completed}
+              />
+            </CardContent>
+          </Collapse>
+        </>
+      )}
     </Card>
   )
 }
