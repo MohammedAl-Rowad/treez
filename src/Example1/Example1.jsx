@@ -152,7 +152,7 @@ export default function MiniDrawer() {
       </AppBar>
 
       {isSmall ? (
-        <MobileDrawer open={open} />
+        <MobileDrawer open={open} setOpen={setOpen} />
       ) : (
         <Drawer
           variant="permanent"
