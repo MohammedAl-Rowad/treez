@@ -6,22 +6,18 @@ import List from '@material-ui/core/List'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import ProgressBar from './ProgressBar'
 import Typography from '@material-ui/core/Typography'
+import MobileDrawer from './MobileDrawer'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import clsx from 'clsx'
 import Node from './Node'
-import { Resizable } from 're-resizable'
 import { name } from 'faker'
 import {
   ChevronLeftRounded as ChevronLeftIcon,
   ChevronRightRounded as ChevronRightIcon,
   InboxRounded as InboxIcon,
-  MailOutline as MailIcon,
   MenuRounded as MenuIcon,
 } from '@material-ui/icons'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
 
 const drawerWidth = 400
 
@@ -98,8 +94,8 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer() {
   const classes = useStyles()
   const theme = useTheme()
-  const [open, setOpen] = React.useState(true)
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
+  const [open, setOpen] = React.useState(isSmall)
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -116,7 +112,7 @@ export default function MiniDrawer() {
         variant="outlined"
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: isSmall ? false : open,
         })}
       >
         <Toolbar>
@@ -155,48 +151,52 @@ export default function MiniDrawer() {
         </Toolbar>
       </AppBar>
 
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
+      {isSmall ? (
+        <MobileDrawer open={open} />
+      ) : (
+        <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
-          }),
-        }}
-      >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </div>
-        <Divider />
-        {open && (
-          <Box p={2}>
-            <ProgressBar />
-          </Box>
-        )}
-        <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <Box p={1} key={index}>
-              <Node
-                text={name.jobTitle()}
-                completed={index % 2 === 0}
-                open={open}
-              />
+          })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </div>
+          <Divider />
+          {open && (
+            <Box p={2}>
+              <ProgressBar />
             </Box>
-          ))}
-        </List>
-        <Divider />
-      </Drawer>
+          )}
+          <Divider />
+          <List>
+            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+              <Box p={1} key={index}>
+                <Node
+                  text={name.jobTitle()}
+                  completed={index % 2 === 0}
+                  open={open}
+                />
+              </Box>
+            ))}
+          </List>
+          <Divider />
+        </Drawer>
+      )}
 
       <main className={classes.content}>
         <div className={classes.toolbar} />

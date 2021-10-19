@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
+import { CardActionArea } from '@material-ui/core'
 import CardHeader from '@material-ui/core/CardHeader'
 import Avatar from '@material-ui/core/Avatar'
 import { CheckRounded as CheckRoundedIcon } from '@material-ui/icons'
@@ -28,20 +29,18 @@ const useStyles = makeStyles((theme) => ({
 export default function RecipeReviewCard({ text, open, completed }) {
   const classes = useStyles({ completed })
   return (
-    <Card className={classes.root}>
+    <Card
+      className={classes.root}
+      onClick={(e) => {
+        e.stopPropagation()
+        e.nativeEvent.stopImmediatePropagation()
+      }}
+    >
       <CardHeader
-        onClick={
-          expanded
-            ? () => {}
-            : (e) => {
-                if (open) {
-                  e.stopPropagation()
-                  // alert(`Clicked ${text}`)
-                  e.nativeEvent.stopImmediatePropagation()
-                  setExpanded(!expanded)
-                }
-              }
-        }
+        onClick={(e) => {
+          e.stopPropagation()
+          e.nativeEvent.stopImmediatePropagation()
+        }}
         className={classes.header}
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
