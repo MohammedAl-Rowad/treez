@@ -16,7 +16,6 @@ import {
   ChevronLeftRounded as ChevronLeftIcon,
   ChevronRightRounded as ChevronRightIcon,
   InboxRounded as InboxIcon,
-  MenuRounded as MenuIcon,
 } from '@material-ui/icons'
 
 const drawerWidth = 400
@@ -125,28 +124,10 @@ export default function MiniDrawer() {
               [classes.hide]: open,
             })}
           >
-            <MenuIcon />
+            <ChevronRightIcon />
           </IconButton>
           <Typography className={classes.t} variant="h6" noWrap>
-            <img
-              src="https://emojis.slackmojis.com/emojis/images/1517898183/3499/hidethepain.png?1517898183"
-              width="20"
-              height="20"
-            />
-          </Typography>
-          <Typography className={classes.t} variant="h6" noWrap>
-            <img
-              src="https://emojis.slackmojis.com/emojis/images/1517898183/3499/hidethepain.png?1517898183"
-              width="20"
-              height="20"
-            />
-          </Typography>
-          <Typography className={classes.t} variant="h6" noWrap>
-            <img
-              src="https://emojis.slackmojis.com/emojis/images/1517898183/3499/hidethepain.png?1517898183"
-              width="20"
-              height="20"
-            />
+            Course title
           </Typography>
         </Toolbar>
       </AppBar>
