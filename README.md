@@ -1,6 +1,6 @@
 # Display Tree menu
 
-how to display a nested tree menu (3 levels) in a readable way
+how to display a nested tree menu (3 levels) in an easy way to understand
 
 
 <p>
